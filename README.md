@@ -1,6 +1,7 @@
 # Deep Learning For Finance
 
 Instructor : Kartik Sirohi
+
 Technical Lead at Finnest
 
 ---
