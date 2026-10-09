@@ -7,9 +7,13 @@
   <title>Deep Learning for Finance</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       max-width: 680px;
-      margin: 80px auto;
+      margin: 72px auto;
       padding: 0 24px;
       color: #222;
       background: #fff;
@@ -22,13 +26,14 @@
       font-size: 36px;
       font-weight: normal;
       letter-spacing: -1px;
-      margin-bottom: 8px;
+      line-height: 1.2;
+      margin: 12px 0;
     }
 
     h2 {
       font-size: 20px;
       font-weight: normal;
-      margin-top: 40px;
+      margin-top: 32px;
       margin-bottom: 8px;
     }
 
@@ -40,6 +45,49 @@
       color: #777;
       font-family: Arial, sans-serif;
       font-size: 13px;
+    }
+
+    .instructor {
+      margin-top: 22px;
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 24px;
+      margin-top: 36px;
+      border-bottom: 1px solid #ddd;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .tab {
+      padding: 10px 0;
+      color: #777;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .tab.active {
+      color: #222;
+      border-bottom-color: #222;
+    }
+
+    .tab:focus-visible {
+      outline: 2px solid #777;
+      outline-offset: 4px;
+    }
+
+    .panel {
+      padding-top: 8px;
+    }
+
+    .panel[hidden] {
+      display: none;
     }
 
     ul {
@@ -56,10 +104,6 @@
       margin: 32px 0;
     }
 
-    a {
-      color: inherit;
-    }
-
     @media (max-width: 600px) {
       body {
         margin-top: 40px;
@@ -67,6 +111,10 @@
 
       h1 {
         font-size: 30px;
+      }
+
+      .tabs {
+        gap: 20px;
       }
     }
   </style>
@@ -77,35 +125,140 @@
 
   <h1>Deep Learning for Finance</h1>
 
-
-
   
+  <p class="instructor">
+    <strong>Instructor:</strong> Kartik Sirohi<br>
+    Technical Lead at Finnest
+  </p>
 
+  <nav class="tabs" aria-label="Course sections" role="tablist">
+    <button
+      class="tab active"
+      id="tab-syllabus"
+      type="button"
+      role="tab"
+      aria-selected="true"
+      aria-controls="syllabus"
+      tabindex="0"
+    >Syllabus</button>
 
-  <h2>01 — Fundamentals</h2>
+    <button
+      class="tab"
+      id="tab-exercises"
+      type="button"
+      role="tab"
+      aria-selected="false"
+      aria-controls="exercises"
+      tabindex="-1"
+    >Exercises</button>
 
-  <ul>
-    <li>Machine learning and deep learning</li>
-    <li>Neural network architecture</li>
-    <li>Weights, biases and activation functions</li>
-    <li>Forward propagation and loss</li>
-    <li>Gradients, backpropagation and training</li>
-  </ul>
+    <button
+      class="tab"
+      id="tab-resources"
+      type="button"
+      role="tab"
+      aria-selected="false"
+      aria-controls="resources"
+      tabindex="-1"
+    >Resources</button>
+  </nav>
 
-  <h2>02 — Applications in finance</h2>
+  <main>
+    <section
+      class="panel"
+      id="syllabus"
+      role="tabpanel"
+      aria-labelledby="tab-syllabus"
+    >
+      <h2>01 — Fundamentals</h2>
 
-  <ul>
-    <li>Fraud detection</li>
-    <li>Credit risk and loan default prediction</li>
-    <li>Financial time-series forecasting</li>
-    <li>Neural networks, LSTMs and Transformers</li>
-    <li>Building blocks of a financial AI system</li>
-  </ul>
+      <ul>
+        <li>Machine learning and deep learning</li>
+        <li>Neural network architecture</li>
+        <li>Weights, biases and activation functions</li>
+        <li>Forward propagation and loss</li>
+        <li>Gradients, backpropagation and training</li>
+      </ul>
+
+      <h2>02 — Applications in finance</h2>
+
+      <ul>
+        <li>Fraud detection</li>
+        <li>Credit risk and loan default prediction</li>
+        <li>Financial time-series forecasting</li>
+        <li>Neural networks, LSTMs and Transformers</li>
+        <li>Building blocks of a financial AI system</li>
+      </ul>
+    </section>
+
+    <section
+      class="panel"
+      id="exercises"
+      role="tabpanel"
+      aria-labelledby="tab-exercises"
+      hidden
+    >
+      <h2>Exercises</h2>
+      <p>Exercises will appear here.</p>
+    </section>
+
+    <section
+      class="panel"
+      id="resources"
+      role="tabpanel"
+      aria-labelledby="tab-resources"
+      hidden
+    >
+      <h2>Resources</h2>
+      <p>More resources will appear here.</p>
+    </section>
+  </main>
 
   <hr>
 
-  <p class="meta">
-    Notes and material will be added as the course develops.
-  </p>
+
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+
+    function activateTab(tab, moveFocus = false) {
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.classList.toggle("active", selected);
+        item.setAttribute("aria-selected", String(selected));
+        item.tabIndex = selected ? 0 : -1;
+
+        const panel = document.getElementById(
+          item.getAttribute("aria-controls")
+        );
+        panel.hidden = !selected;
+      });
+
+      if (moveFocus) tab.focus();
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activateTab(tab));
+
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = index;
+
+        if (event.key === "ArrowRight") {
+          nextIndex = (index + 1) % tabs.length;
+        } else if (event.key === "ArrowLeft") {
+          nextIndex = (index - 1 + tabs.length) % tabs.length;
+        } else if (event.key === "Home") {
+          nextIndex = 0;
+        } else if (event.key === "End") {
+          nextIndex = tabs.length - 1;
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        activateTab(tabs[nextIndex], true);
+      });
+    });
+  </script>
 </body>
 </html>
