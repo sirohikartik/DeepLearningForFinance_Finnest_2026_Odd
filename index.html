@@ -1,10 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deep Learning for Finance</title>
+  <title>Deep Learning for Finance — Kartik Sirohi</title>
+
+  <!-- MathJax for rendering LaTeX math formulas -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
     * {
@@ -12,12 +26,12 @@
     }
 
     body {
-      max-width: 680px;
-      margin: 72px auto;
+      max-width: 760px;
+      margin: 64px auto;
       padding: 0 24px;
       color: #222;
       background: #fff;
-      font-family: Georgia, serif;
+      font-family: Georgia, "Times New Roman", Times, serif;
       font-size: 16px;
       line-height: 1.7;
     }
@@ -27,18 +41,38 @@
       font-weight: normal;
       letter-spacing: -1px;
       line-height: 1.2;
-      margin: 12px 0;
+      margin: 12px 0 6px 0;
     }
 
     h2 {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: normal;
-      margin-top: 32px;
+      margin-top: 36px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: normal;
+      margin-top: 28px;
       margin-bottom: 8px;
+      color: #111;
     }
 
     p, li {
-      color: #444;
+      color: #333;
+    }
+
+    a {
+      color: #1a0dab;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: #0b0080;
     }
 
     .meta {
@@ -48,14 +82,16 @@
     }
 
     .instructor {
-      margin-top: 22px;
-      font-size: 14px;
+      margin-top: 14px;
+      font-size: 15px;
+      color: #444;
+      line-height: 1.5;
     }
 
     .tabs {
       display: flex;
       gap: 24px;
-      margin-top: 36px;
+      margin-top: 32px;
       border-bottom: 1px solid #ddd;
       font-family: Arial, sans-serif;
       font-size: 14px;
@@ -70,11 +106,13 @@
       margin-bottom: -1px;
       cursor: pointer;
       font: inherit;
+      font-weight: 500;
     }
 
     .tab.active {
-      color: #222;
-      border-bottom-color: #222;
+      color: #111;
+      border-bottom-color: #111;
+      font-weight: 600;
     }
 
     .tab:focus-visible {
@@ -83,38 +121,161 @@
     }
 
     .panel {
-      padding-top: 8px;
+      padding-top: 12px;
     }
 
     .panel[hidden] {
       display: none;
     }
 
-    ul {
-      padding-left: 20px;
+    ul, ol {
+      padding-left: 22px;
     }
 
     li {
-      margin: 4px 0;
+      margin: 6px 0;
     }
 
     hr {
       border: 0;
       border-top: 1px solid #ddd;
-      margin: 32px 0;
+      margin: 40px 0;
+    }
+
+    /* Exercises Styling */
+    .exercise-box {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 36px;
+      background: #fafafa;
+    }
+
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .exercise-tag {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #edf2f7;
+      color: #4a5568;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .exercise-title {
+      font-size: 20px;
+      font-weight: normal;
+      margin: 0;
+      color: #111;
+    }
+
+    .exercise-context {
+      font-size: 15px;
+      color: #4a5568;
+      font-style: italic;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    details {
+      background: #ffffff;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin-top: 20px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2b6cb0;
+      user-select: none;
+    }
+
+    summary:hover {
+      color: #2c5282;
+    }
+
+    .solution-content {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed #e2e8f0;
+      font-size: 15px;
+    }
+
+    /* Resources Styling */
+    .resource-card {
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .resource-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a202c;
+      margin-bottom: 4px;
+    }
+
+    .resource-author {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #718096;
+      margin-bottom: 8px;
+    }
+
+    .resource-desc {
+      font-size: 15px;
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    .resource-links {
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .resource-links a {
+      margin-right: 14px;
+      display: inline-block;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 14px;
+      background: #f1f5f9;
+      padding: 2px 5px;
+      border-radius: 4px;
     }
 
     @media (max-width: 600px) {
       body {
-        margin-top: 40px;
+        margin-top: 36px;
       }
 
       h1 {
-        font-size: 30px;
+        font-size: 28px;
       }
 
       .tabs {
-        gap: 20px;
+        gap: 16px;
+      }
+
+      .exercise-box {
+        padding: 16px;
       }
     }
   </style>
@@ -122,10 +283,8 @@
 
 <body>
 
-
   <h1>Deep Learning for Finance</h1>
 
-  
   <p class="instructor">
     <strong>Instructor:</strong> Kartik Sirohi<br>
     Technical Lead at Finnest
@@ -164,6 +323,7 @@
   </nav>
 
   <main>
+    <!-- SYLLABUS PANEL -->
     <section
       class="panel"
       id="syllabus"
@@ -171,26 +331,25 @@
       aria-labelledby="tab-syllabus"
     >
       <h2>01 — Fundamentals</h2>
-
       <ul>
-        <li>Machine learning and deep learning</li>
-        <li>Neural network architecture</li>
-        <li>Weights, biases and activation functions</li>
-        <li>Forward propagation and loss</li>
-        <li>Gradients, backpropagation and training</li>
+        <li><strong>Machine learning and deep learning:</strong> Representation learning, inductive bias, empirical risk minimization.</li>
+        <li><strong>Neural network architecture:</strong> Multi-layer perceptrons, matrix computations, computation graphs.</li>
+        <li><strong>Weights, biases and activation functions:</strong> Non-linear activations (ReLU, Sigmoid, Tanh, Softplus, GELU) and parameter initialization.</li>
+        <li><strong>Forward propagation and loss:</strong> Binary Cross-Entropy, Mean Squared Error, and probabilistic likelihoods.</li>
+        <li><strong>Gradients, backpropagation and training:</strong> Exact multivariable chain rule, Jacobian-vector products, SGD, and adaptive optimizers (Adam).</li>
       </ul>
 
       <h2>02 — Applications in finance</h2>
-
       <ul>
-        <li>Fraud detection</li>
-        <li>Credit risk and loan default prediction</li>
-        <li>Financial time-series forecasting</li>
-        <li>Neural networks, LSTMs and Transformers</li>
-        <li>Building blocks of a financial AI system</li>
+        <li><strong>Fraud detection:</strong> Extreme class imbalance, anomaly detection, precision-recall optimization, and cost-sensitive loss.</li>
+        <li><strong>Credit risk and loan default prediction:</strong> Calibrated probability of default (PD), expected loss modeling, and interpretable credit scorecards.</li>
+        <li><strong>Financial time-series forecasting:</strong> Volatility clustering, non-stationarity, market regime shifts, and multi-horizon returns.</li>
+        <li><strong>Neural networks, LSTMs and Transformers:</strong> Recurrent dynamics, Long Short-Term Memory gates, self-attention, and sequence modeling.</li>
+        <li><strong>Building blocks of a financial AI system:</strong> Robust latency pipelines, strict point-in-time backtesting, and risk-management boundaries.</li>
       </ul>
     </section>
 
+    <!-- EXERCISES PANEL -->
     <section
       class="panel"
       id="exercises"
@@ -198,10 +357,241 @@
       aria-labelledby="tab-exercises"
       hidden
     >
-      <h2>Exercises</h2>
-      <p>Exercises will appear here.</p>
+      <h2>Mathematical Exercises</h2>
+      <p style="color: #666; font-size: 15px; margin-bottom: 24px;">
+        These four mathematical exercises develop rigorous analytical proficiency in neural network mechanics applied to financial problems. Expand the solution dropdown in each exercise to inspect complete mathematical derivations.
+      </p>
+
+      <!-- EXERCISE 1 -->
+      <article class="exercise-box">
+        <div class="exercise-header">
+          <h3 class="exercise-title">Exercise 1: Analytical Forward &amp; Backpropagation for Credit Risk Classification</h3>
+          <span class="exercise-tag">Calculus &amp; Optimization</span>
+        </div>
+        <p class="exercise-context">
+          <strong>Financial Context:</strong> In consumer credit risk underwriting, an institution predicts loan default ($y = 1$) versus repayment ($y = 0$) using financial applicant covariates.
+        </p>
+
+        <p><strong>Model Formulation:</strong></p>
+        <p>Consider a 2-layer Multi-Layer Perceptron (MLP) with:</p>
+        <ul>
+          <li>Input $x = [x_1, x_2]^T \in \mathbb{R}^2$ where $x_1$ is Debt-to-Income (DTI) and $x_2$ is revolving credit utilization.</li>
+          <li>Hidden layer with 2 neurons and ReLU activation $\operatorname{ReLU}(z) = \max(0, z)$:
+            $$z^{[1]} = W^{[1]} x + b^{[1]}, \quad a^{[1]} = \operatorname{ReLU}(z^{[1]})$$
+            $$W^{[1]} = \begin{pmatrix} 0.5 & -0.2 \\ 0.8 & 0.4 \end{pmatrix}, \quad b^{[1]} = \begin{pmatrix} 0.1 \\ -0.3 \end{pmatrix}$$
+          </li>
+          <li>Output layer with 1 neuron and Sigmoid activation $\sigma(z) = \frac{1}{1 + e^{-z}}$ predicting default probability $\hat{y}$:
+            $$z^{[2]} = W^{[2]} a^{[1]} + b^{[2]}, \quad \hat{y} = \sigma(z^{[2]})$$
+            $$W^{[2]} = \begin{pmatrix} 1.2 & -0.9 \end{pmatrix}, \quad b^{[2]} = -0.1$$
+          </li>
+          <li>Loss function: Binary Cross-Entropy $\mathcal{L}(y, \hat{y}) = -[y \ln(\hat{y}) + (1-y)\ln(1-\hat{y})]$.</li>
+        </ul>
+
+        <p><strong>Questions:</strong></p>
+        <ol>
+          <li>For applicant $x = [0.6, 0.8]^T$ with true label $y = 1$ (default), calculate $z^{[1]}$, $a^{[1]}$, $z^{[2]}$, the default probability $\hat{y}$, and loss $\mathcal{L}$.</li>
+          <li>Prove analytically that $\frac{\partial \mathcal{L}}{\partial z^{[2]}} = \hat{y} - y$.</li>
+          <li>Compute exact numerical gradients $\frac{\partial \mathcal{L}}{\partial W^{[2]}}$, $\frac{\partial \mathcal{L}}{\partial b^{[2]}}$, hidden error $\delta^{[1]} = \frac{\partial \mathcal{L}}{\partial z^{[1]}}$, $\frac{\partial \mathcal{L}}{\partial W^{[1]}}$, and $\frac{\partial \mathcal{L}}{\partial b^{[1]}}$.</li>
+          <li>Compute updated parameters following one gradient descent step with learning rate $\eta = 0.1$.</li>
+        </ol>
+
+        <details>
+          <summary>View Step-by-Step Mathematical Solution</summary>
+          <div class="solution-content">
+            <p><strong>1. Forward Pass:</strong></p>
+            $$z_1^{[1]} = 0.5(0.6) + (-0.2)(0.8) + 0.1 = 0.30 - 0.16 + 0.10 = 0.24$$
+            $$z_2^{[1]} = 0.8(0.6) + 0.4(0.8) - 0.30 = 0.48 + 0.32 - 0.30 = 0.50$$
+            $$a_1^{[1]} = \max(0, 0.24) = 0.24, \quad a_2^{[1]} = \max(0, 0.50) = 0.50$$
+            $$z^{[2]} = 1.2(0.24) + (-0.9)(0.50) - 0.1 = 0.288 - 0.450 - 0.100 = -0.262$$
+            $$\hat{y} = \sigma(-0.262) = \frac{1}{1 + e^{0.262}} \approx \frac{1}{1 + 1.2995} \approx \mathbf{0.4349}$$
+            $$\mathcal{L}(1, 0.4349) = -\ln(0.4349) \approx \mathbf{0.8327}$$
+
+            <p><strong>2. Output Gradient Derivation:</strong></p>
+            $$\frac{\partial \mathcal{L}}{\partial \hat{y}} = -\frac{y}{\hat{y}} + \frac{1-y}{1-\hat{y}} = \frac{\hat{y} - y}{\hat{y}(1-\hat{y})}, \quad \frac{\partial \hat{y}}{\partial z^{[2]}} = \hat{y}(1-\hat{y})$$
+            $$\frac{\partial \mathcal{L}}{\partial z^{[2]}} = \frac{\partial \mathcal{L}}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial z^{[2]}} = \frac{\hat{y}-y}{\hat{y}(1-\hat{y})} \cdot \hat{y}(1-\hat{y}) = \mathbf{\hat{y} - y} \quad \blacksquare$$
+
+            <p><strong>3. Exact Numerical Gradients:</strong></p>
+            $$\delta^{[2]} = \frac{\partial \mathcal{L}}{\partial z^{[2]}} = 0.4349 - 1 = \mathbf{-0.5651}$$
+            $$\frac{\partial \mathcal{L}}{\partial W^{[2]}} = \delta^{[2]} (a^{[1]})^T = -0.5651 \times [0.24, 0.50] = \mathbf{[-0.1356, \; -0.2826]}$$
+            $$\frac{\partial \mathcal{L}}{\partial b^{[2]}} = \delta^{[2]} = \mathbf{-0.5651}$$
+            $$\delta^{[1]} = ((W^{[2]})^T \delta^{[2]}) \odot \mathbf{1}_{z^{[1]}>0} = \begin{pmatrix} 1.2 \\ -0.9 \end{pmatrix} (-0.5651) \odot \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \mathbf{\begin{pmatrix} -0.6782 \\ 0.5086 \end{pmatrix}}$$
+            $$\frac{\partial \mathcal{L}}{\partial W^{[1]}} = \delta^{[1]} x^T = \begin{pmatrix} -0.6782 \\ 0.5086 \end{pmatrix} \begin{pmatrix} 0.6 & 0.8 \end{pmatrix} = \mathbf{\begin{pmatrix} -0.4069 & -0.5425 \\ 0.3052 & 0.4069 \end{pmatrix}}$$
+            $$\frac{\partial \mathcal{L}}{\partial b^{[1]}} = \delta^{[1]} = \mathbf{\begin{pmatrix} -0.6782 \\ 0.5086 \end{pmatrix}}$$
+
+            <p><strong>4. Gradient Descent Updates ($\eta = 0.1$):</strong></p>
+            $$W^{[2]\prime} = [1.2, -0.9] - 0.1[-0.1356, -0.2826] = \mathbf{[1.2136, \; -0.8717]}$$
+            $$b^{[2]\prime} = -0.1 - 0.1(-0.5651) = \mathbf{-0.0435}$$
+            $$W^{[1]\prime} = \begin{pmatrix} 0.5 & -0.2 \\ 0.8 & 0.4 \end{pmatrix} - 0.1 \begin{pmatrix} -0.4069 & -0.5425 \\ 0.3052 & 0.4069 \end{pmatrix} = \mathbf{\begin{pmatrix} 0.5407 & -0.1458 \\ 0.7695 & 0.3593 \end{pmatrix}}$$
+            $$b^{[1]\prime} = \begin{pmatrix} 0.1 \\ -0.3 \end{pmatrix} - 0.1 \begin{pmatrix} -0.6782 \\ 0.5086 \end{pmatrix} = \mathbf{\begin{pmatrix} 0.1678 \\ -0.3509 \end{pmatrix}}$$
+          </div>
+        </details>
+      </article>
+
+      <!-- EXERCISE 2 -->
+      <article class="exercise-box">
+        <div class="exercise-header">
+          <h3 class="exercise-title">Exercise 2: Recurrent Dynamics, Vanishing Gradients, and Spectral Norms</h3>
+          <span class="exercise-tag">Time-Series &amp; Linear Algebra</span>
+        </div>
+        <p class="exercise-context">
+          <strong>Financial Context:</strong> In asset volatility prediction and market regime classification, financial sequences span hundreds of trading days ($T \ge 252$). Standard recurrent models often fail to retain long-memory trends.
+        </p>
+
+        <p><strong>Model Formulation:</strong></p>
+        <p>A standard Elman Recurrent Neural Network updates hidden states via:</p>
+        $$h_t = \tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h), \quad t = 1, \dots, T$$
+        <p>where $h_t \in \mathbb{R}^m$, $W_{hh} \in \mathbb{R}^{m \times m}$, and a loss $\mathcal{L} = \ell(h_T)$ is evaluated at horizon $T$.</p>
+
+        <p><strong>Questions:</strong></p>
+        <ol>
+          <li>Show using the multivariable chain rule that $\frac{\partial h_T}{\partial h_t} = \prod_{k=t+1}^{T} \frac{\partial h_k}{\partial h_{k-1}}$ and derive the single-step Jacobian $\frac{\partial h_k}{\partial h_{k-1}}$.</li>
+          <li>Using the induced matrix 2-norm (spectral norm $\|A\|_2 = \sigma_{\max}(A)$), prove the upper bound:
+            $$\left\| \frac{\partial h_T}{\partial h_t} \right\|_2 \le \left( \sigma_{\max}(W_{hh}) \right)^{T - t}$$
+          </li>
+          <li>Contrast the asymptotic behavior as $(T - t) \to \infty$ for $\sigma_{\max}(W_{hh}) < 1$ versus $\sigma_{\min}(W_{hh}) > 1$. Why does this explain why standard RNNs fail on low-frequency macroeconomic signals?</li>
+          <li>In an LSTM cell state $c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t$, evaluate $\frac{\partial c_t}{\partial c_{t-1}}$ and explain how initializing forget-gate bias $b_f \approx 1$ creates a "Constant Error Carousel" ($\frac{\partial c_T}{\partial c_t} \approx I$).</li>
+        </ol>
+
+        <details>
+          <summary>View Step-by-Step Mathematical Solution</summary>
+          <div class="solution-content">
+            <p><strong>1. Temporal Jacobian:</strong></p>
+            $$\frac{\partial h_T}{\partial h_t} = \frac{\partial h_T}{\partial h_{T-1}} \frac{\partial h_{T-1}}{\partial h_{T-2}} \cdots \frac{\partial h_{t+1}}{\partial h_t} = \prod_{k=t+1}^T \frac{\partial h_k}{\partial h_{k-1}}$$
+            Let $z_k = W_{hh} h_{k-1} + W_{xh} x_k + b_h$, so $h_k = \tanh(z_k)$. Since $\frac{d\tanh(u)}{du} = 1 - \tanh^2(u)$:
+            $$\frac{\partial h_k}{\partial h_{k-1}} = \operatorname{diag}\left(1 - h_k^2\right) W_{hh}^T$$
+
+            <p><strong>2. Spectral Norm Bound Proof:</strong></p>
+            By sub-multiplicativity of induced matrix norms $\|AB\|_2 \le \|A\|_2 \|B\|_2$:
+            $$\left\| \frac{\partial h_T}{\partial h_t} \right\|_2 \le \prod_{k=t+1}^T \left\| \operatorname{diag}\left(1 - h_k^2\right) W_{hh}^T \right\|_2 \le \prod_{k=t+1}^T \left\| \operatorname{diag}\left(1 - h_k^2\right) \right\|_2 \|W_{hh}^T\|_2$$
+            Since $\max_i |1 - \tanh^2(z_{k,i})| \le 1$ and $\|W_{hh}^T\|_2 = \sigma_{\max}(W_{hh})$:
+            $$\left\| \frac{\partial h_T}{\partial h_t} \right\|_2 \le \prod_{k=t+1}^T 1 \cdot \sigma_{\max}(W_{hh}) = \mathbf{\left( \sigma_{\max}(W_{hh}) \right)^{T - t}} \quad \blacksquare$$
+
+            <p><strong>3. Financial Asymptotics:</strong></p>
+            <ul>
+              <li><strong>Vanishing Gradient:</strong> When $\sigma_{\max}(W_{hh}) < 1$, as $(T - t) \to \infty$, the sensitivity bounds decay exponentially: $(\sigma_{\max})^{T-t} \to 0$. Macroeconomic regime signals occurring 60 or 252 trading days prior exert zero gradient influence on parameter updates.</li>
+              <li><strong>Exploding Gradient:</strong> When $\sigma_{\min}(W_{hh}) > 1$ and states operate in linear regions, gradients explode exponentially: $\sigma_{\min}^{T-t} \to \infty$, destabilizing weights during high-volatility financial shocks.</li>
+            </ul>
+
+            <p><strong>4. LSTM Additive Error Highway:</strong></p>
+            $$\frac{\partial c_t}{\partial c_{t-1}} = \operatorname{diag}(f_t) + \left( \frac{\partial f_t}{\partial c_{t-1}} \odot c_{t-1} + \frac{\partial i_t}{\partial c_{t-1}} \odot \tilde{c}_t + \frac{\partial \tilde{c}_t}{\partial c_{t-1}} \odot i_t \right)$$
+            When forget gate bias $b_f \ge 1$, the sigmoid produces $f_t = \sigma(z_f) \approx 1$. Hence:
+            $$\frac{\partial c_T}{\partial c_t} \approx \prod_{k=t+1}^T \operatorname{diag}(f_k) \approx \prod_{k=t+1}^T I = \mathbf{I}$$
+            The gradient flows linearly through the additive cell state across hundreds of market periods without geometric decay.
+          </div>
+        </details>
+      </article>
+
+      <!-- EXERCISE 3 -->
+      <article class="exercise-box">
+        <div class="exercise-header">
+          <h3 class="exercise-title">Exercise 3: Loss Curvature, Hessian Spectrum, and Learning Rate Bounds</h3>
+          <span class="exercise-tag">Convex Optimization &amp; Portfolios</span>
+        </div>
+        <p class="exercise-context">
+          <strong>Financial Context:</strong> In multi-factor equity models, cross-sectional excess asset returns $y \in \mathbb{R}^N$ are regressed on $d$ factor exposures $X \in \mathbb{R}^{N \times d}$ (Value, Momentum, Quality, Size, Beta).
+        </p>
+
+        <p><strong>Model Formulation:</strong></p>
+        <p>A regularized neural layer with weights $w \in \mathbb{R}^d$ minimizes Mean Squared Error with $L_2$ weight decay:</p>
+        $$\mathcal{L}(w) = \frac{1}{2N} \| y - X w \|_2^2 + \frac{\lambda}{2} \| w \|_2^2, \quad \lambda > 0$$
+
+        <p><strong>Questions:</strong></p>
+        <ol>
+          <li>Compute the analytical gradient $\nabla_w \mathcal{L}(w)$ and the Hessian matrix $H = \nabla^2_w \mathcal{L}(w)$.</li>
+          <li>Prove that $H$ is strictly positive definite for any $\lambda > 0$, even when factors in $X$ are highly collinear.</li>
+          <li>Under gradient descent $w^{(k+1)} = w^{(k)} - \eta \nabla \mathcal{L}(w^{(k)})$, prove that the error $e^{(k)} = w^{(k)} - w^*$ converges to zero if and only if:
+            $$0 < \eta < \frac{2}{\lambda_{\max}(H)}$$
+          </li>
+          <li>Prove that the optimal learning rate is $\eta^* = \frac{2}{\lambda_{\max}(H) + \lambda_{\min}(H)}$, and derive the optimal convergence rate $\rho^* = \frac{\kappa - 1}{\kappa + 1}$ where $\kappa = \frac{\lambda_{\max}(H)}{\lambda_{\min}(H)}$. Explain how weight decay $\lambda$ fixes ill-conditioned factor covariance matrices.</li>
+        </ol>
+
+        <details>
+          <summary>View Step-by-Step Mathematical Solution</summary>
+          <div class="solution-content">
+            <p><strong>1. Gradient and Hessian:</strong></p>
+            $$\mathcal{L}(w) = \frac{1}{2N} \left( y^Ty - 2 y^T X w + w^T X^T X w \right) + \frac{\lambda}{2} w^T w$$
+            $$\nabla_w \mathcal{L}(w) = \left( \frac{1}{N} X^T X + \lambda I \right) w - \frac{1}{N} X^T y$$
+            $$H = \nabla^2_w \mathcal{L}(w) = \mathbf{\frac{1}{N} X^T X + \lambda I} \quad \blacksquare$$
+
+            <p><strong>2. Positive Definiteness:</strong></p>
+            For any non-zero vector $v \ne 0$:
+            $$v^T H v = \frac{1}{N} \|X v\|_2^2 + \lambda \|v\|_2^2 \ge 0 + \lambda \|v\|_2^2 > 0 \quad (\text{since } \lambda > 0)$$
+            All eigenvalues satisfy $\lambda_i(H) \ge \lambda > 0$. The loss surface is strictly convex with a unique global minimizer $w^* = (X^T X + N \lambda I)^{-1} X^T y$.
+
+            <p><strong>3. Maximum Stable Learning Rate:</strong></p>
+            Since $\nabla \mathcal{L}(w^*) = 0$, we have $\nabla \mathcal{L}(w^{(k)}) = H (w^{(k)} - w^*)$. Subtracting $w^*$:
+            $$e^{(k+1)} = (I - \eta H) e^{(k)} \implies e^{(k)} = (I - \eta H)^k e^{(0)}$$
+            Convergence requires all eigenvalues of $(I - \eta H)$ to satisfy $|1 - \eta \lambda_i(H)| < 1$:
+            $$-1 < 1 - \eta \lambda_i(H) < 1 \iff 0 < \eta < \frac{2}{\lambda_i(H)} \quad \forall i$$
+            Restricted by the largest eigenvalue: $\mathbf{0 < \eta < \frac{2}{\lambda_{\max}(H)}} \quad \blacksquare$
+
+            <p><strong>4. Optimal Rate and Conditioning:</strong></p>
+            The maximum contraction factor $\max \{ |1 - \eta \lambda_{\min}|, |1 - \eta \lambda_{\max}| \}$ is minimized when:
+            $$1 - \eta^* \lambda_{\min}(H) = -(1 - \eta^* \lambda_{\max}(H)) \implies \mathbf{\eta^* = \frac{2}{\lambda_{\max}(H) + \lambda_{\min}(H)}}$$
+            $$\rho^* = \frac{\lambda_{\max}(H) - \lambda_{\min}(H)}{\lambda_{\max}(H) + \lambda_{\min}(H)} = \mathbf{\frac{\kappa - 1}{\kappa + 1}}, \quad \text{where } \kappa = \frac{\lambda_{\max}(H)}{\lambda_{\min}(H)}$$
+            In financial factor modeling, collinear factors cause $\lambda_{\min}(\frac{1}{N} X^T X) \approx 0$, leading to $\kappa \to \infty$ and crippling gradient descent. Adding $L_2$ regularization shifts the spectrum uniformly: $\kappa_{\text{reg}} = \frac{\lambda_{\max} + \lambda}{\lambda_{\min} + \lambda} \ll \infty$, dramatically accelerating optimization.
+          </div>
+        </details>
+      </article>
+
+      <!-- EXERCISE 4 -->
+      <article class="exercise-box">
+        <div class="exercise-header">
+          <h3 class="exercise-title">Exercise 4: Physics-Informed &amp; Non-Arbitrage Neural Networks</h3>
+          <span class="exercise-tag">Derivatives &amp; PINNs</span>
+        </div>
+        <p class="exercise-context">
+          <strong>Financial Context:</strong> Neural networks trained to price European call option surfaces $C(S, K, \tau)$ must enforce economic no-arbitrage laws and satisfy the Black-Scholes partial differential equation (PDE).
+        </p>
+
+        <p><strong>Model Formulation:</strong></p>
+        <p>Consider a neural pricing function $\hat{C}_\theta(S, K, \tau)$ using the Softplus activation $g(z) = \ln(1 + e^z)$:</p>
+        $$\hat{C}_\theta(S, K, \tau) = \sum_{j=1}^m v_j g(w_j S + u_j K + p_j \tau + b_j) + b_0$$
+
+        <p><strong>Questions:</strong></p>
+        <ol>
+          <li>Prove that constraining outer weights $v_j \ge 0$ guarantees strike convexity $\frac{\partial^2 \hat{C}_\theta}{\partial K^2} \ge 0$, eliminating butterfly arbitrage and ensuring non-negative Breeden-Litzenberger risk-neutral probabilities $q(K) = e^{r\tau} \frac{\partial^2 C}{\partial K^2} \ge 0$.</li>
+          <li>Prove that $g'(z) = \sigma(z)$ and $g''(z) = \sigma(z)(1 - \sigma(z))$. Derive analytical closed forms for Delta $\hat{\Delta} = \frac{\partial \hat{C}}{\partial S}$ and Gamma $\hat{\Gamma} = \frac{\partial^2 \hat{C}}{\partial S^2}$.</li>
+          <li>Formulate the total Physics-Informed Neural Network (PINN) loss function balancing market observation data and the Black-Scholes PDE residual:
+            $$\mathcal{N}[C] = \frac{\partial C}{\partial \tau} - \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} - r S \frac{\partial C}{\partial S} + r C = 0$$
+          </li>
+          <li>For a single neuron ($m=1$) with $v_1 = 1.0, w_1 = 0.5, u_1 = -0.5, p_1 = 0.2, b_1 = 0, b_0 = 0$, evaluate $\hat{C}$, $\hat{\Delta}$, $\hat{\Gamma}$, and the numerical PDE residual $\mathcal{N}[\hat{C}]$ at spot $S = 100$, strike $K = 100$, maturity $\tau = 1$, volatility $\sigma = 0.20$, and risk-free rate $r = 0.05$.</li>
+        </ol>
+
+        <details>
+          <summary>View Step-by-Step Mathematical Solution</summary>
+          <div class="solution-content">
+            <p><strong>1. Proof of Arbitrage-Free Convexity:</strong></p>
+            $$\frac{\partial \hat{C}_\theta}{\partial K} = \sum_{j=1}^m v_j u_j g'(z_j) \implies \frac{\partial^2 \hat{C}_\theta}{\partial K^2} = \sum_{j=1}^m v_j u_j^2 g''(z_j)$$
+            For Softplus, $g''(z) = \sigma(z)(1 - \sigma(z)) > 0$ for all $z \in \mathbb{R}$. Since $u_j^2 \ge 0$, if $v_j \ge 0$:
+            $$v_j u_j^2 g''(z_j) \ge 0 \implies \mathbf{\frac{\partial^2 \hat{C}_\theta}{\partial K^2} \ge 0 \quad \forall K \in \mathbb{R}} \quad \blacksquare$$
+
+            <p><strong>2. Derivatives and Greeks:</strong></p>
+            $$g'(z) = \frac{e^z}{1 + e^z} = \sigma(z), \quad g''(z) = \sigma(z)(1 - \sigma(z))$$
+            $$\mathbf{\hat{\Delta} = \frac{\partial \hat{C}}{\partial S} = \sum_{j=1}^m v_j w_j \sigma(z_j)}$$
+            $$\mathbf{\hat{\Gamma} = \frac{\partial^2 \hat{C}}{\partial S^2} = \sum_{j=1}^m v_j w_j^2 \sigma(z_j)(1 - \sigma(z_j))}$$
+            When $v_j \ge 0$ and $w_j \ge 0$, $\hat{\Delta} \ge 0$ (monotonicity with spot) and $\hat{\Gamma} \ge 0$ (non-negative gamma).
+
+            <p><strong>3. Physics-Informed Loss Function:</strong></p>
+            $$\mathcal{L}_{\text{PINN}}(\theta) = \frac{1}{N}\sum_{i=1}^N \left(\hat{C}_\theta(S_i, K_i, \tau_i) - C_i^{\text{mkt}}\right)^2 + \frac{\lambda_{\text{PDE}}}{M}\sum_{k=1}^M \left( \frac{\partial \hat{C}_\theta}{\partial \tau_k} - \frac{1}{2}\sigma^2 S_k^2 \frac{\partial^2 \hat{C}_\theta}{\partial S_k^2} - r S_k \frac{\partial \hat{C}_\theta}{\partial S_k} + r \hat{C}_\theta \right)^2$$
+
+            <p><strong>4. Concrete Numerical Evaluation:</strong></p>
+            $$z_1 = 0.5(100) - 0.5(100) + 0.2(1) + 0 = \mathbf{0.2}$$
+            $$\hat{C} = \ln(1 + e^{0.2}) = \ln(1 + 1.2214) = \ln(2.2214) \approx \mathbf{0.7981}$$
+            $$\sigma(0.2) = \frac{1}{1 + e^{-0.2}} \approx \mathbf{0.5498}, \quad g''(0.2) = 0.5498(1 - 0.5498) \approx \mathbf{0.2475}$$
+            $$\frac{\partial \hat{C}}{\partial \tau} = (1.0)(0.2)(0.5498) = \mathbf{0.1100}$$
+            $$\hat{\Delta} = \frac{\partial \hat{C}}{\partial S} = (1.0)(0.5)(0.5498) = \mathbf{0.2749}$$
+            $$\hat{\Gamma} = \frac{\partial^2 \hat{C}}{\partial S^2} = (1.0)(0.25)(0.2475) = \mathbf{0.0619}$$
+            $$\text{Diffusion term: } \frac{1}{2} \sigma^2 S^2 \hat{\Gamma} = \frac{1}{2}(0.04)(10000)(0.0619) = 200 \times 0.0619 = \mathbf{12.38}$$
+            $$\text{Drift term: } r S \hat{\Delta} = 0.05(100)(0.2749) = \mathbf{1.3746}$$
+            $$\text{Discount term: } r \hat{C} = 0.05(0.7981) = \mathbf{0.0399}$$
+            $$\mathcal{N}[\hat{C}] = 0.1100 - 12.38 - 1.3746 + 0.0399 = \mathbf{-13.6047}$$
+          </div>
+        </details>
+      </article>
     </section>
 
+    <!-- RESOURCES PANEL -->
     <section
       class="panel"
       id="resources"
@@ -209,8 +599,74 @@
       aria-labelledby="tab-resources"
       hidden
     >
-      <h2>Resources</h2>
-      <p>More resources will appear here.</p>
+      <h2>Curated Deep Learning Resources</h2>
+      <p style="color: #666; font-size: 15px; margin-bottom: 24px;">
+        Core foundational courses, lecture series, implementations, and theoretical treatises recommended for this course.
+      </p>
+
+      <!-- ANDREJ KARPATHY -->
+      <article class="resource-card">
+        <div class="resource-name">Neural Networks: Zero to Hero &amp; Stanford CS231n</div>
+        <div class="resource-author">Andrej Karpathy — Former Director of AI at Tesla, OpenAI Founding Member</div>
+        <div class="resource-desc">
+          An indispensable, hands-on journey from microscopic foundations to state-of-the-art Transformer models. Karpathy walks through building neural network autograd engines from first principles, writing manual backpropagation kernels, designing language models, and training GPT models.
+          <ul style="margin-top: 8px;">
+            <li><strong>micrograd:</strong> A tiny autograd engine implementing scalar backpropagation.</li>
+            <li><strong>makemore:</strong> Autoregressive generative modeling from Bigrams to MLPs, BatchNorm, and WaveNet.</li>
+            <li><strong>nanoGPT:</strong> The cleanest, fastest repository for training medium-sized GPTs.</li>
+            <li><strong>CS231n Notes:</strong> Iconic Stanford course notes on vector calculus, computational graphs, and neural optimization.</li>
+          </ul>
+        </div>
+        <div class="resource-links">
+          <a href="https://karpathy.ai/zero-to-hero.html" target="_blank" rel="noopener">Zero to Hero Course</a>
+          <a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" target="_blank" rel="noopener">YouTube Playlist</a>
+          <a href="https://cs231n.github.io/optimization-2/" target="_blank" rel="noopener">CS231n Optimization Notes</a>
+          <a href="https://github.com/karpathy/micrograd" target="_blank" rel="noopener">micrograd Repo</a>
+          <a href="http://karpathy.github.io/2019/04/25/recipe/" target="_blank" rel="noopener">A Recipe for Training NNs</a>
+        </div>
+      </article>
+
+      <!-- ANDREW NG -->
+      <article class="resource-card">
+        <div class="resource-name">Stanford CS230: Deep Learning &amp; Deep Learning Specialization</div>
+        <div class="resource-author">Andrew Ng — Stanford Adjunct Professor, Co-founder of Coursera &amp; DeepLearning.AI</div>
+        <div class="resource-desc">
+          Stanford University's CS230 and the Deep Learning Specialization provide the gold-standard systematic framework for deep learning. Andrew Ng covers deep network architectures, hyperparameter tuning, orthogonalization, gradient checking, convolutional systems, and sequence models (RNNs/LSTMs/Transformers).
+          <ul style="margin-top: 8px;">
+            <li><strong>CS230 Stanford:</strong> Applied deep learning methodology, error analysis, and project execution.</li>
+            <li><strong>Deep Learning Specialization:</strong> Comprehensive 5-course curriculum on neural network intuition and math.</li>
+            <li><strong>Stanford CS229:</strong> Rigorous statistical learning theory, optimization, and generalized linear models.</li>
+          </ul>
+        </div>
+        <div class="resource-links">
+          <a href="https://cs230.stanford.edu/" target="_blank" rel="noopener">Stanford CS230 Website</a>
+          <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rOABXSygHTsbvUz4G_YQhOb" target="_blank" rel="noopener">CS230 YouTube Lectures</a>
+          <a href="https://www.deeplearning.ai/courses/deep-learning-specialization/" target="_blank" rel="noopener">Deep Learning Specialization</a>
+          <a href="https://stanford.edu/~shervine/teaching/cs-230/" target="_blank" rel="noopener">CS230 Super Cheatsheets</a>
+          <a href="https://cs229.stanford.edu/" target="_blank" rel="noopener">Stanford CS229</a>
+        </div>
+      </article>
+
+      <!-- THE THEORY OF DEEP LEARNING BOOK -->
+      <article class="resource-card">
+        <div class="resource-name">The Principles of Deep Learning Theory</div>
+        <div class="resource-author">Daniel A. Roberts, Sho Yaida, and Boris Hanin — Cambridge University Press</div>
+        <div class="resource-desc">
+          A definitive, groundbreaking mathematical textbook treating deep neural networks through the lens of effective field theory and theoretical physics. Rather than viewing deep learning as a mysterious black box, this book constructs a systematic, first-principles microscopic theory of signal propagation through depth, critical weight-and-bias initialization, and finite-width corrections ($1/N$ expansion) that reveal why deep neural representations learn and generalize.
+          <ul style="margin-top: 8px;">
+            <li><strong>Effective Field Theory Framework:</strong> Unifies infinite-width Gaussian processes with realistic finite-width feature learning.</li>
+            <li><strong>Signal Propagation &amp; Criticality:</strong> Exact criteria for preserving variance and gradient information across arbitrarily deep architectures.</li>
+            <li><strong>Representation Learning:</strong> Mathematical proof of how interactions at finite width enable hidden layer representations to adapt to data.</li>
+          </ul>
+        </div>
+        <div class="resource-links">
+          <a href="https://deeplearningtheory.com/" target="_blank" rel="noopener">Official Book Website</a>
+          <a href="https://arxiv.org/abs/2106.10165" target="_blank" rel="noopener">Free arXiv Preprint (2106.10165)</a>
+          <a href="https://www.cambridge.org/core/books/principles-of-deep-learning-theory/65B5CF3625AC6595F87A7D7C198E7D59" target="_blank" rel="noopener">Cambridge University Press</a>
+          <a href="https://www.deeplearningbook.org/" target="_blank" rel="noopener">Goodfellow et al. Deep Learning Book</a>
+          <a href="https://udlbook.github.io/udlbook/" target="_blank" rel="noopener">Understanding Deep Learning (Prince)</a>
+        </div>
+      </article>
     </section>
   </main>
 
@@ -233,6 +689,11 @@
       });
 
       if (moveFocus) tab.focus();
+
+      // Trigger MathJax re-render for formulas in newly unhidden panels
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
     }
 
     tabs.forEach((tab, index) => {
